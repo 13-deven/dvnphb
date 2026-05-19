@@ -1,0 +1,1617 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEVENPHOBE.COM | Auteur • Artiste 2D 3D • Créateur d'univers</title>
+    <meta name="description" content="Portfolio de Deven Phobe - Auteur BD, 2D/3D Artist, FX Cinéma. Découvrez ONIROPHOBIE, 13 LEVELS et les coulisses de la création.">
+    <link href="https://cdn.jsdelivr.net/npm/fontsource-space-grotesk@5.1.0/index.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/fontsource-inter@5.1.0/index.css" rel="stylesheet">
+     <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+    <style>
+        :root {
+            --bg: #0A0A0A;
+            --surface: #141414;
+            --surface2: #1E1E1E;
+            --surface3: #2A2A2A;
+            --text: #F5F5F5;
+            --text-dim: #A0A0A0;
+            --accent: #7B5CFF;
+            --accent2: #00E5B2;
+            --danger: #FF6B6B;
+            --success: #51CF66;
+            --radius: 12px;
+            --radius-lg: 20px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+        h1, h2, h3, h4, h5 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; line-height: 1.2; }
+        a { text-decoration: none; color: inherit; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        
+        .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 20px 0; transition: all var(--transition); background: transparent; }
+        .navbar.scrolled { padding: 12px 0; background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .navbar .container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 800; letter-spacing: 2px; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .nav-links { display: flex; gap: 32px; list-style: none; }
+        .nav-links a { font-size: 0.9rem; font-weight: 500; color: var(--text-dim); transition: color var(--transition); position: relative; }
+        .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--accent); transition: width var(--transition); }
+        .nav-links a:hover, .nav-links a.active { color: var(--text); }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+        .menu-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; z-index: 1001; }
+        .menu-toggle span { width: 24px; height: 2px; background: var(--text); transition: all var(--transition); transform-origin: center; }
+        .menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .menu-toggle.active span:nth-child(2) { opacity: 0; }
+        .menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+        
+        /* HERO & PARTICULES FIX */
+        .hero { position: relative; overflow: hidden; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding-top: 80px; }
+        .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 50%, rgba(123,92,255,0.15) 0%, transparent 60%), radial-gradient(ellipse at 70% 80%, rgba(0,229,178,0.1) 0%, transparent 50%); z-index: 0; }
+        .hero-particles { position: absolute; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
+        .particle { position: absolute; border-radius: 50%; opacity: 0.4; animation: floatParticle 10s infinite ease-in-out; will-change: transform, opacity; }
+        @keyframes floatParticle {
+            0%, 100% { transform: translateY(0) translateX(0) scale(1); opacity: 0.2; }
+            50% { transform: translateY(-120px) translateX(60px) scale(1.5); opacity: 0.7; }
+        }
+        .hero-content { position: relative; z-index: 2; text-align: center; max-width: 900px; }
+        .hero-tag { display: inline-flex; align-items: center; gap: 8px; padding: 8px 20px; background: rgba(123,92,255,0.1); border: 1px solid rgba(123,92,255,0.3); border-radius: 50px; font-size: 0.85rem; color: var(--accent); margin-bottom: 24px; }
+        .hero-tag::before { content: ''; width: 8px; height: 8px; background: var(--accent); border-radius: 50%; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.5); } }
+        .hero h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); margin-bottom: 20px; letter-spacing: -1px; }
+        .hero h1 .gradient { background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero-subtitle { font-size: 1.2rem; color: var(--text-dim); max-width: 600px; margin: 0 auto 40px; }
+        .hero-cta { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 28px; border-radius: var(--radius); font-weight: 600; font-size: 0.95rem; transition: all var(--transition); cursor: pointer; border: none; font-family: inherit; }
+        .btn-primary { background: linear-gradient(135deg, var(--accent), #5B3CFF); color: white; box-shadow: 0 4px 20px rgba(123,92,255,0.3); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(123,92,255,0.4); }
+        .btn-secondary { background: transparent; color: var(--text); border: 1px solid rgba(255,255,255,0.2); }
+        .btn-secondary:hover { border-color: var(--accent); background: rgba(123,92,255,0.1); }
+        .scroll-indicator { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); animation: bounce 2s infinite; opacity: 0.7; z-index: 2; }
+        @keyframes bounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(-10px); } }
+        
+        .section { padding: 120px 0; position: relative; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header h2 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 16px; }
+        .section-header p { color: var(--text-dim); max-width: 600px; margin: 0 auto; }
+        
+        /* REEL */
+        .reel-wrapper { position: relative; display: flex; align-items: center; gap: 16px; }
+        .reel-carousel { flex: 1; display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; padding: 20px 0; scrollbar-width: none; -ms-overflow-style: none; }
+        .reel-carousel::-webkit-scrollbar { display: none; }
+        .reel-btn { flex-shrink: 0; width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.15); background: var(--surface); color: var(--text); font-size: 1.8rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s; user-select: none; z-index: 10; }
+        .reel-btn:hover { background: var(--accent); border-color: var(--accent); transform: scale(1.1); }
+        .reel-btn:active { transform: scale(0.95); }
+        .reel-section { background: var(--surface); padding: 80px 0; }
+        .reel-card { flex: 0 0 250px; padding: 12px; background: var(--surface2); border-radius: var(--radius); display: flex; flex-direction: column; gap: 10px; cursor: pointer; transition: transform 0.3s ease; border: 1px solid rgba(255,255,255,0.05); scroll-snap-align: center; }
+        .reel-card:hover { transform: translateY(-4px); border-color: var(--accent); }
+        .reel-thumb { width: 100%; height: 140px; object-fit: cover; border-radius: 8px; background: var(--surface3); display: block; }
+        .reel-info { display: flex; flex-direction: column; gap: 4px; }
+        .reel-tag { font-size: 0.7rem; padding: 3px 8px; background: rgba(123,92,255,0.15); color: var(--accent); border-radius: 4px; align-self: flex-start; font-weight: 600; }
+        .reel-title { font-size: 0.9rem; margin: 0; color: var(--text); line-height: 1.3; }
+        
+        /* BOOK */
+        .book-filters { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px; }
+        .filter-btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 24px; background: var(--surface2); border: 1px solid rgba(255,255,255,0.1); border-radius: 50px; color: var(--text-dim); cursor: pointer; transition: all var(--transition); font-family: inherit; font-size: 0.9rem; }
+        .filter-btn:hover, .filter-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
+        .book-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
+        .book-card { background: var(--surface); border-radius: var(--radius); overflow: hidden; transition: all var(--transition); cursor: pointer; border: 1px solid rgba(255,255,255,0.05); position: relative; }
+        .book-card:hover { transform: translateY(-8px); border-color: var(--accent); box-shadow: 0 20px 40px rgba(123,92,255,0.2); }
+        .book-card-img { height: 200px; background-color: var(--surface2); position: relative; overflow: hidden; }
+        .book-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .book-card:hover .book-card-img img { transform: scale(1.05); }
+        .book-card-content { padding: 20px; }
+        .book-card-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+        .book-card-tags span { font-size: 0.75rem; padding: 4px 10px; background: rgba(123,92,255,0.1); color: var(--accent); border-radius: 4px; display: inline-flex; align-items: center; gap: 4px; }
+        .book-card h3 { font-size: 1.1rem; margin-bottom: 8px; }
+        .book-card p { font-size: 0.85rem; color: var(--text-dim); }
+        
+        /* CV */
+        .timeline { position: relative; max-width: 800px; margin: 0 auto; }
+        .timeline::before { content: ''; position: absolute; left: 50%; transform: translateX(-50%); top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--accent), var(--accent2)); }
+        .timeline-item { display: flex; gap: 40px; margin-bottom: 40px; position: relative; }
+        .timeline-item:nth-child(odd) { flex-direction: row-reverse; }
+        .timeline-dot { position: absolute; left: 50%; transform: translateX(-50%); width: 16px; height: 16px; background: var(--accent); border-radius: 50%; border: 3px solid var(--bg); z-index: 2; }
+        .timeline-content { flex: 1; background: var(--surface); padding: 24px; border-radius: var(--radius); border: 1px solid rgba(255,255,255,0.05); transition: all var(--transition); }
+        .timeline-content:hover { border-color: var(--accent); transform: translateY(-4px); }
+        .timeline-year { font-size: 0.8rem; color: var(--accent); margin-bottom: 8px; font-weight: 600; }
+        .timeline-content h3 { margin-bottom: 8px; font-size: 1.2rem; }
+        .timeline-content p { color: var(--text-dim); font-size: 0.9rem; }
+        .skills-grid { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 60px; }
+        .skill-tag { padding: 10px 20px; background: var(--surface); border: 1px solid rgba(255,255,255,0.1); border-radius: 50px; font-size: 0.85rem; transition: all var(--transition); cursor: default; }
+        .skill-tag:hover { background: var(--accent); color: white; transform: scale(1.05); }
+        
+        /* PROJETS */
+        .project-card { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; margin-bottom: 80px; background: var(--surface); padding: 40px; border-radius: var(--radius-lg); border: 1px solid rgba(255,255,255,0.05); }
+        .project-visual { height: 350px; border-radius: var(--radius); overflow: hidden; position: relative; background: var(--surface2); }
+        .project-visual-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+        .project-card:hover .project-visual-img { transform: scale(1.05); }
+        .project-info h3 { font-size: 1.8rem; margin-bottom: 16px; }
+        .project-info p { color: var(--text-dim); margin-bottom: 20px; }
+        .project-status { display: inline-flex; align-items: center; gap: 8px; font-size: 0.85rem; margin-bottom: 20px; }
+        .project-status .dot { width: 8px; height: 8px; border-radius: 50%; }
+        .project-status .dot.active { background: var(--success); animation: pulse 2s infinite; }
+        .project-status .dot.wip { background: var(--accent); }
+        
+        /* LABO */
+        .lab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
+        .lab-card { background: var(--surface); border-radius: var(--radius); overflow: hidden; transition: all var(--transition); border: 1px solid rgba(255,255,255,0.05); }
+        .lab-card:hover { transform: translateY(-4px); border-color: var(--accent2); }
+        .lab-card-img { height: 180px; background-color: var(--surface2); overflow: hidden; }
+        .lab-card-img img { width: 100%; height: 100%; object-fit: cover; }
+        .lab-card-content { padding: 16px; }
+        .lab-card-date { font-size: 0.75rem; color: var(--text-dim); margin-bottom: 8px; }
+        .lab-card h4 { font-size: 1rem; margin-bottom: 8px; }
+        .lab-card p { font-size: 0.85rem; color: var(--text-dim); }
+        
+        /* AGENDA */
+        .agenda-apps { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 60px; }
+        .app-badge { display: flex; align-items: center; gap: 12px; padding: 16px 24px; background: var(--surface); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius); transition: all var(--transition); text-decoration: none; color: inherit; }
+        .app-badge:hover { border-color: var(--accent); transform: translateY(-4px); }
+        .app-badge-icon { width: 40px; height: 40px; background: var(--surface2); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+        .events-list { max-width: 700px; margin: 0 auto; }
+        .event-card { display: flex; gap: 20px; padding: 20px; background: var(--surface); border-radius: var(--radius); margin-bottom: 16px; border: 1px solid rgba(255,255,255,0.05); transition: all var(--transition); }
+        .event-card:hover { border-color: var(--accent); }
+        .event-date { min-width: 60px; text-align: center; padding: 12px; background: var(--surface2); border-radius: 8px; }
+        .event-date .day { font-size: 1.5rem; font-weight: 700; color: var(--accent); }
+        .event-date .month { font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase; }
+        .event-info h4 { margin-bottom: 4px; }
+        .event-info p { font-size: 0.85rem; color: var(--text-dim); }
+        .event-type { font-size: 0.7rem; padding: 4px 8px; border-radius: 4px; margin-top: 8px; display: inline-block; }
+        .event-type.games { background: rgba(123,92,255,0.2); color: var(--accent); }
+        .event-type.relax { background: rgba(0,229,178,0.2); color: var(--accent2); }
+        .event-type.creatif { background: rgba(255,107,107,0.2); color: var(--danger); }
+        
+        /* CONTACT */
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+        .contact-form { display: flex; flex-direction: column; gap: 20px; }
+        .form-group { display: flex; flex-direction: column; gap: 8px; }
+        .form-group label { font-size: 0.85rem; color: var(--text-dim); font-weight: 500; }
+        .form-group input, .form-group select, .form-group textarea { padding: 14px 16px; background: var(--surface); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius); color: var(--text); font-family: inherit; font-size: 0.95rem; transition: border-color var(--transition); outline: none; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--accent); }
+        .form-group textarea { min-height: 120px; resize: vertical; }
+        .contact-info { display: flex; flex-direction: column; gap: 24px; }
+        .contact-info-item { display: flex; align-items: flex-start; gap: 16px; padding: 20px; background: var(--surface); border-radius: var(--radius); border: 1px solid rgba(255,255,255,0.05); }
+        .contact-info-icon { width: 48px; height: 48px; background: rgba(123,92,255,0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .contact-info-icon svg { width: 24px; height: 24px; stroke: var(--accent); }
+        .contact-info-item h4 { margin-bottom: 4px; font-size: 1rem; }
+        .contact-info-item p { font-size: 0.85rem; color: var(--text-dim); }
+        .faq-accordion { margin-top: 40px; }
+        .faq-item { border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .faq-question { display: flex; justify-content: space-between; align-items: center; padding: 16px 0; cursor: pointer; font-weight: 500; transition: color var(--transition); }
+        .faq-question:hover { color: var(--accent); }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height var(--transition), padding var(--transition); color: var(--text-dim); font-size: 0.9rem; }
+        .faq-item.active .faq-answer { max-height: 200px; padding-bottom: 16px; }
+        .faq-icon { transition: transform var(--transition); }
+        .faq-item.active .faq-icon { transform: rotate(180deg); }
+        
+        .footer { background: var(--surface); padding: 60px 0 30px; border-top: 1px solid rgba(255,255,255,0.05); }
+        .footer-content { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+        .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+        .footer-links a { font-size: 0.85rem; color: var(--text-dim); transition: color var(--transition); }
+        .footer-links a:hover { color: var(--accent); }
+        .footer-bottom { text-align: center; padding-top: 30px; margin-top: 30px; border-top: 1px solid rgba(255,255,255,0.05); font-size: 0.8rem; color: var(--text-dim); }
+        
+        .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 2000; display: flex; align-items: center; justify-content: center; padding: 40px; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+        .lightbox.active { opacity: 1; pointer-events: all; }
+        .lightbox-content { max-width: 900px; width: 100%; background: var(--surface); border-radius: var(--radius-lg); overflow: hidden; transform: scale(0.95); transition: transform 0.3s ease; position: relative; }
+        .lightbox.active .lightbox-content { transform: scale(1); }
+        .lightbox-img { width: 100%; max-height: 60vh; object-fit: contain; background: #000; display: block; }
+        .lightbox-info { padding: 30px; }
+        .lightbox-close { position: absolute; top: 15px; right: 15px; width: 40px; height: 40px; background: rgba(0,0,0,0.6); border: none; border-radius: 50%; color: white; font-size: 1.5rem; cursor: pointer; transition: all var(--transition); z-index: 10; display: flex; align-items: center; justify-content: center; }
+        .lightbox-close:hover { background: var(--accent); }
+        
+        .mobile-menu { position: fixed; top: 0; right: -100%; width: 100%; height: 100vh; background: var(--bg); z-index: 999; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 32px; transition: right var(--transition); }
+        .mobile-menu.active { right: 0; }
+        .mobile-menu a { font-size: 1.5rem; font-weight: 600; color: var(--text-dim); transition: color var(--transition); }
+        .mobile-menu a:hover { color: var(--text); }
+        
+        .toast { position: fixed; bottom: 30px; right: 30px; padding: 16px 24px; background: var(--surface2); border: 1px solid var(--success); border-radius: var(--radius); color: var(--text); z-index: 3000; transform: translateY(100px); opacity: 0; transition: all var(--transition); box-shadow: 0 10px 30px rgba(0,0,0,0.3); pointer-events: none; }
+        .toast.show { transform: translateY(0); opacity: 1; }
+        .wip-banner { background: linear-gradient(135deg, var(--accent), var(--accent2)); padding: 6px 16px; border-radius: 50px; font-size: 0.75rem; font-weight: 600; display: inline-block; margin-bottom: 12px; }
+        
+        @media (max-width: 968px) {
+            .nav-links { display: none; }
+            .menu-toggle { display: flex; }
+            .project-card { grid-template-columns: 1fr; gap: 30px; }
+            .contact-grid { grid-template-columns: 1fr; }
+            .timeline::before { left: 20px; }
+            .timeline-dot { left: 20px; }
+            .timeline-item, .timeline-item:nth-child(odd) { flex-direction: row; gap: 20px; padding-left: 40px; }
+            .hero h1 { font-size: 2.5rem; }
+        }
+        @media (max-width: 640px) {
+            .section { padding: 80px 0; }
+            .hero-cta { flex-direction: column; align-items: center; }
+            .btn { width: 100%; }
+            .reel-card { flex: 0 0 260px; }
+        }
+
+        /* Fix Navigation Active State */
+        .nav-links a.active {
+            color: var(--text) !important;
+            font-weight: 600;
+        }
+        .nav-links a.active::after {
+            width: 100% !important;
+            background: var(--accent);
+        }
+        .mobile-menu a.active {
+            color: var(--accent) !important;
+            font-weight: 600;
+        }
+    </style>
+
+    <style>
+/* Toggle audio — position DROITE + néon fushia */
+#audioToggle {
+    position: fixed;
+    bottom: 24px;
+    right: 24px; /* ← CHANGEMENT : droite au lieu de centre */
+    left: auto;  /* ← CHANGEMENT : annule le centrage */
+    transform: none; /* ← CHANGEMENT : supprime translateX */
+    z-index: 100;
+    width: 44px;
+    height: 44px;
+    border: 1px solid rgba(255, 0, 150, 0.4); /* ← CHANGEMENT : bordure rose */
+    border-radius: 50%;
+    background: rgba(10, 10, 15, 0.95);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    opacity: 0.9;
+    /* ← AJOUT : glow néon permanent subtil */
+    box-shadow: 0 0 10px rgba(255, 0, 150, 0.2), 
+                0 0 20px rgba(255, 0, 150, 0.1);
+}
+
+/* Hover + actif — néon intense */
+#audioToggle:hover,
+#audioToggle.active {
+    border-color: #FF00AA; /* ← CHANGEMENT : rose fushia pur */
+    color: #FF00AA;
+    opacity: 1;
+    /* ← AJOUT : glow néon puissant */
+    box-shadow: 0 0 15px rgba(255, 0, 170, 0.6), 
+                0 0 30px rgba(255, 0, 170, 0.4),
+                0 0 45px rgba(255, 0, 170, 0.2);
+    animation: pulse-neon 2s ease-in-out infinite;
+}
+
+/* ← AJOUT : animation pulsation néon */
+@keyframes pulse-neon {
+    0%, 100% { 
+        box-shadow: 0 0 15px rgba(255,0,170,0.6), 
+                    0 0 30px rgba(255,0,170,0.4); 
+    }
+    50% { 
+        box-shadow: 0 0 20px rgba(255,0,170,0.9), 
+                    0 0 40px rgba(255,0,170,0.6),
+                    0 0 60px rgba(255,0,170,0.3); 
+    }
+}
+
+/* Icônes — couleur néon */
+#audioToggle svg {
+    width: 18px;
+    height: 18px;
+    transition: opacity 0.2s ease, stroke 0.2s ease;
+    stroke: #FF66CC; /* ← CHANGEMENT : rose clair par défaut */
+}
+#audioToggle:hover svg,
+#audioToggle.active svg {
+    stroke: #FF00AA; /* ← CHANGEMENT : rose fushia au hover/actif */
+}
+
+/* Hint — coordonné néon */
+#audioHint {
+    position: fixed;
+    bottom: 80px;
+    right: 24px; /* ← CHANGEMENT : aligné à droite sous l'icône */
+    left: auto;
+    transform: none;
+    z-index: 99;
+    padding: 6px 14px;
+    background: rgba(26, 26, 36, 0.98);
+    border: 1px solid rgba(255, 0, 170, 0.5); /* ← CHANGEMENT : bordure rose */
+    border-radius: 18px;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: #FF66CC; /* ← CHANGEMENT : texte rose */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+    text-transform: uppercase;
+    text-shadow: 0 0 8px rgba(255, 0, 170, 0.4); /* ← AJOUT : glow texte */
+}
+#audioHint.visible { opacity: 1; }
+
+
+
+
+
+
+/* === SCROLLBAR LISANOX STYLE === */
+/* Chrome, Edge, Safari */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: #0A0A0F;
+    border-left: 1px solid rgba(255,255,255,0.03);
+}
+::-webkit-scrollbar-thumb {
+    background: #4A3B8C;
+    border-radius: 4px;
+    transition: background 0.25s ease;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #5A4B9C;
+    box-shadow: 0 0 12px rgba(74,59,140,0.5);
+}
+
+/* Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #4A3B8C #0A0A0F;
+}
+
+/* Optionnel : désactiver sur mobile si besoin */
+@media (max-width: 768px) {
+    ::-webkit-scrollbar {
+        width: 4px;
+    }
+}
+
+#book { min-height: 50vh; padding-bottom: 7rem; padding-top: 3rem;}
+#cv { min-height: 50vh; padding-bottom: 7rem; padding-top: 3rem;}
+#projets { min-height: 50vh; padding-bottom: 7rem; padding-top: 3rem;}
+#labo { min-height: 50vh; padding-bottom: 7rem; padding-top: 3rem;}
+#agenda { min-height: 50vh; padding-bottom: 11rem; padding-top: 8rem;}
+#contact { min-height: 50vh; padding-bottom: 7rem; padding-top: 0rem;}
+
+
+
+/* Timeline Clickable */
+.timeline-item { cursor: pointer; transition: all 0.3s ease; }
+.timeline-item:hover { transform: translateX(10px); }
+.timeline-item:hover .timeline-content { border-color: var(--accent); box-shadow: 0 10px 30px rgba(123,92,255,0.2); }
+
+/* CV Lightbox Gallery */
+.cv-lightbox { 
+    position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 3000; 
+    display: none; align-items: center; justify-content: center; padding: 40px;
+    opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+}
+.cv-lightbox.active { display: flex; opacity: 1; pointer-events: all; }
+.cv-lightbox-content { 
+    max-width: 1000px; width: 100%; background: var(--surface); 
+    border-radius: var(--radius-lg); overflow: hidden; position: relative;
+    transform: scale(0.95); transition: transform 0.3s ease;
+}
+.cv-lightbox.active .cv-lightbox-content { transform: scale(1); }
+.cv-lightbox-close {
+    position: absolute; top: 15px; right: 15px; width: 40px; height: 40px;
+    background: rgba(0,0,0,0.6); border: none; border-radius: 50%; color: white;
+    font-size: 1.5rem; cursor: pointer; z-index: 10; display: flex; 
+    align-items: center; justify-content: center; transition: all 0.3s;
+}
+.cv-lightbox-close:hover { background: var(--accent); transform: rotate(90deg); }
+.cv-lightbox-header { padding: 30px 30px 20px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+.cv-lightbox-year { 
+    display: inline-block; padding: 4px 12px; background: var(--accent); 
+    color: white; border-radius: 20px; font-size: 0.8rem; margin-bottom: 12px; 
+}
+.cv-lightbox-title { font-size: 1.8rem; margin-bottom: 8px; }
+.cv-lightbox-desc { color: var(--text-dim); line-height: 1.6; }
+.cv-lightbox-gallery { 
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+    gap: 16px; padding: 30px; max-height: 50vh; overflow-y: auto; 
+}
+.cv-lightbox-gallery img { 
+    width: 100%; height: 200px; object-fit: cover; border-radius: var(--radius);
+    border: 2px solid rgba(255,255,255,0.1); transition: all 0.3s; cursor: pointer;
+}
+.cv-lightbox-gallery img:hover { border-color: var(--accent); transform: scale(1.05); }
+.cv-lightbox-empty { 
+    padding: 60px 30px; text-align: center; color: var(--text-dim); 
+}
+.cv-lightbox-empty svg { width: 64px; height: 64px; margin-bottom: 16px; opacity: 0.5; }
+
+
+/* 🔍 Image Viewer (Zoom Popup) */
+.image-viewer {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.96); z-index: 4000;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+}
+.image-viewer.active { opacity: 1; pointer-events: all; }
+.image-viewer img {
+    max-width: 92vw; max-height: 92vh; object-fit: contain;
+    border-radius: 8px; box-shadow: 0 15px 50px rgba(0,0,0,0.6);
+    transition: transform 0.3s ease;
+}
+.image-viewer-close {
+    position: absolute; top: 20px; right: 20px; width: 44px; height: 44px;
+    background: rgba(255,255,255,0.1); border: none; border-radius: 50%;
+    color: white; font-size: 1.8rem; cursor: pointer; display: flex;
+    align-items: center; justify-content: center; transition: all 0.3s;
+}
+.image-viewer-close:hover { background: var(--accent); transform: rotate(90deg); }
+/* Indicateur de zoom sur les images du CV */
+.cv-lightbox-gallery img { cursor: zoom-in; }
+.cv-lightbox-gallery img:hover { border-color: var(--accent); filter: brightness(1.1); }
+
+
+.cv-lightbox-gallery iframe {
+    border-radius: var(--radius);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+.cv-lightbox-gallery iframe:hover {
+    box-shadow: 0 8px 25px rgba(123,92,255,0.3);
+}
+</style>
+<!-- Toggle Icon (bas centre) -->
+<button id="audioToggle" aria-label="Ambiance onirique" title="Activer/couper le son" style="
+    position:fixed; bottom:70px; left:50%; transform:translateX(-50%); z-index:100;
+    width:40px; height:40px; border:1px solid rgba(255,255,255,0.12);
+    border-radius:50%; background:rgba(10,10,15,0.95);
+    display:flex; align-items:center; justify-content:center; cursor:pointer;
+    transition:all 0.25s ease; opacity:0.9;
+">
+    <svg class="icon-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:16px;height:16px;transition:opacity 0.2s;">
+        <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
+    </svg>
+    <svg class="icon-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:16px;height:16px;opacity:0;position:absolute;transition:opacity 0.2s;">
+        <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
+        <path d="M16 13a3 3 0 0 0 3-3" stroke-linecap="round"/>
+        <path d="M19 9a6 6 0 0 0 6-6" stroke-linecap="round" opacity="0.6"/>
+    </svg>
+</button>
+
+<!-- Audio Element -->
+<audio id="ambientAudio" loop preload="auto" playsinline>
+    <source src="assets/audio/ambiance-onirique.mp3" type="audio/mpeg">
+</audio>
+</head>
+<body>
+
+<nav class="navbar" id="navbar">
+    <div class="container">
+        <a href="#accueil" class="logo">DEVENPHOBE</a>
+        <ul class="nav-links">
+            <li><a href="#accueil">Accueil</a></li>
+            <li><a href="#book">Book</a></li>
+            <li><a href="#cv">CV & Parcours</a></li>
+            <li><a href="#projets">Projets</a></li>
+            <li><a href="#labo">Labo</a></li>
+            <li><a href="#agenda">Agenda</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="menu-toggle" id="menuToggle">
+            <span></span><span></span><span></span>
+        </div>
+    </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+    <a href="#accueil">Accueil</a>
+    <a href="#book">Book</a>
+    <a href="#cv">CV & Parcours</a>
+    <a href="#projets">Projets</a>
+    <a href="#labo">Labo</a>
+    <a href="#agenda">Agenda</a>
+    <a href="#contact">Contact</a>
+</div>
+
+<section class="hero" id="accueil">
+    <div class="hero-bg"></div>
+    <!-- FIX PARTICULES: Conteneur ajouté ici -->
+    <div class="hero-particles" id="particles"></div>
+    <div class="hero-content">
+        <div class="hero-tag">Disponible pour collaborations</div>
+        <h1>Derrière l'auteur,<br><span class="gradient">l'artiste.</span></h1>
+        <p class="hero-subtitle">Auteur BD, 2D/3D Artist, FX Cinéma. Je crée des univers immersifs et partage les coulisses de mon processus créatif. Bienvenue dans mon labo.</p>
+        <div class="hero-cta">
+            <a href="#book" class="btn btn-primary">Explorer mon Book</a>
+            <a href="#contact" class="btn btn-secondary">Me contacter</a>
+        </div>
+    </div>
+    <div class="scroll-indicator">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
+    </div>
+</section>
+
+<section class="reel-section">
+    <div class="container">
+        <div class="section-header"><h2>Travaux Récents</h2><p>Un aperçu de mes dernières créations et expérimentations.</p></div>
+        <div class="reel-wrapper">
+            <button class="reel-btn reel-prev" aria-label="Précédent">‹</button>
+            <div class="reel-carousel" id="reelCarousel"></div>
+            <button class="reel-btn reel-next" aria-label="Suivant">›</button>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="book">
+    <div class="container">
+        <div class="section-header"><h2>Mon Book</h2><p>Galerie hybride : artistique, technique, BD, FX et 3D.</p></div>
+        <div class="book-filters" id="bookFilters"></div>
+        <div class="book-grid" id="bookGrid"></div>
+        <div style="text-align:center; margin-top:40px;">
+            <button class="btn btn-secondary" onclick="showToast('📄 PDF disponible bientôt !')">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:8px"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+                Télécharger le Book PDF
+            </button>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="cv" style="background: var(--surface);">
+    <div class="container">
+        <div class="section-header"><h2>Mon Parcours</h2><p>De la BD aux univers 3D, chaque étape forge ma vision créative.</p></div>
+        <div class="timeline" id="timeline"></div>
+        <div class="skills-grid" id="skillsGrid"></div>
+    </div>
+</section>
+
+<section class="section" id="projets">
+    <div class="container">
+        <div class="section-header"><h2>Mes Projets</h2><p>Les univers qui me passionnent et les mondes en construction.</p></div>
+        <div id="projectsContainer"></div>
+    </div>
+</section>
+
+<section class="section" id="labo" style="background: var(--surface);">
+    <div class="container">
+        <div class="section-header"><h2>Labo Créatif</h2><p>Croquis, tests, erreurs et découvertes. Le processus derrière le résultat.</p></div>
+        <div class="lab-grid" id="labGrid"></div>
+        <div style="text-align:center; margin-top:40px;">
+            <button class="btn btn-secondary" onclick="document.getElementById('laboSuggestion').scrollIntoView({behavior:'smooth'})">Proposer un sujet de labo</button>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="agenda">
+    <div class="container">
+        <div class="section-header"><h2>Agenda & Sorties</h2><p>Retrouvez-moi IRL sur vos apps de sorties préférées.</p></div>
+        <div class="agenda-apps" id="agendaApps"></div>
+        <div class="events-list" id="eventsList"></div>
+    </div>
+</section>
+
+<section class="section" id="contact" style="background: var(--surface);">
+    <div class="container">
+        <div class="section-header"><h2>Contact</h2><p>Collaboration, presse, ou juste discuter ? Je suis là.</p></div>
+        <div class="contact-grid">
+            <form class="contact-form" id="contactForm" action="https://formspree.io/f/xbdweajd" method="POST">
+    <div class="form-group">
+        <label for="c-name">Nom</label>
+        <input type="text" id="c-name" name="nom" required placeholder="Votre nom">
+    </div>
+    <div class="form-group">
+        <label for="c-email">Email</label>
+        <input type="email" id="c-email" name="email" required placeholder="votre@email.com">
+    </div>
+    <div class="form-group">
+        <label for="c-type">Type de demande</label>
+        <select id="c-type" name="type" required>
+            <option value="">Sélectionnez...</option>
+            <option value="collab">Collaboration</option>
+            <option value="presse">Presse / Interview</option>
+            <option value="event">Événement</option>
+            <option value="autre">Autre</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="c-message">Message</label>
+        <textarea id="c-message" name="message" required placeholder="Décrivez votre demande..."></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:8px"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        Envoyer le message
+    </button>
+</form>
+            <div class="contact-info">
+                <div class="contact-info-item"><div class="contact-info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><div><h4>Email professionnel</h4><p>contact@devenphobe.com</p></div></div>
+                <div class="contact-info-item"><div class="contact-info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div><h4>Disponibilité</h4><p>Réponse sous 48h. Actuellement ouvert aux collaborations sur projets BD et 3D.</p></div></div>
+                <div class="contact-info-item"><div class="contact-info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></div><div><h4>Réseaux sociaux</h4><p>@devenphobe sur toutes les plateformes</p></div></div>
+                <div class="faq-accordion">
+                    <h3 style="margin-bottom: 16px;">Questions fréquentes</h3>
+                    <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">Quel est ton délai moyen pour un projet ?<span class="faq-icon">▼</span></div><div class="faq-answer">En général, 4 à 8 semaines selon la complexité du projet. Un brief détaillé permet d'estimer plus précisément.</div></div>
+                    <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">Travailles-tu avec des débutants ?<span class="faq-icon">▼</span></div><div class="faq-answer">Toujours ! J'adore les projets passionnés et les nouvelles collaborations. Le plus important, c'est l'énergie et la clarté du brief.</div></div>
+                    <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">Comment fonctionnent les droits d'auteur ?<span class="faq-icon">▼</span></div><div class="faq-answer">Les droits sont définis par contrat selon le type de projet. Je suis transparent sur les tarifs et les conditions dès le premier échange.</div></div>
+                </div>
+            </div>
+        </div>
+        <div id="laboSuggestion" style="max-width:600px; margin:60px auto 0; text-align:center;">
+            <h3 style="margin-bottom:16px;">💡 Propose un sujet de labo</h3>
+            <p style="color:var(--text-dim); margin-bottom:20px;">Une technique à explorer ? Un outil à tester ? Dis-moi ce qui t'intéresse !</p>
+            <form id="laboSuggestionForm" action="https://formspree.io/f/xbdweajd" method="POST" style="display:flex; gap:12px;">
+                <input type="hidden" name="_subject" value="🧪 Nouvelle suggestion Labo">
+                <input type="text" name="suggestion" id="laboInput" placeholder="Ex: Tutoriel rigging Blender..." required style="flex:1; padding:14px; background:var(--surface2); border:1px solid rgba(255,255,255,0.1); border-radius:var(--radius); color:var(--text); font-family:inherit; outline:none;">
+                <button type="submit" class="btn btn-primary">Proposer</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="logo">DEVENPHOBE</div>
+            <div class="footer-links">
+                <a href="#accueil">Accueil</a>
+                <a href="#book">Book</a>
+                <a href="#projets">Projets</a>
+                <a href="mailto:contact@devenphobe.com?subject=Contact%20via%20DevenPhobe.com&body=Bonjour%20Deven%2C%0A%0AJ%27%C3%A9cris%20concernant%20%3A%0A%5B%20d%C3%A9crivez%20votre%20demande%20%5D%0A%0AMerci%20d%27avance%20!">Contact</a>
+                <a href="#">Mentions légales</a>
+            </div>
+        </div>
+        <div class="footer-bottom">© 2026 Deven Phobe. Tous droits réservés. | devenphobe.com</div>
+    </div>
+</footer>
+
+<div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose">&times;</button>
+    <div class="lightbox-content" id="lightboxContent">
+        <img class="lightbox-img" id="lightboxImg" src="" alt="Preview">
+        <div class="lightbox-info">
+            <h3 id="lightboxTitle"></h3>
+            <p id="lightboxDesc" style="color:var(--text-dim); margin-top:8px;"></p>
+            <div style="margin-top:16px;"><span class="wip-banner" id="lightboxTools"></span></div>
+        </div>
+    </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ==========================================
+// DATA CONFIGURATION
+// ==========================================
+const reelData = [
+    { title: "ONIROPHOBIE - Couverture Finale", tag: "BD", image: "images/reel/01.jpg" },
+    { title: "Storyboard - Character Design", tag: "BD", image: "images/reel/01a.jpg" },
+    { title: "Blocking 3D - Setup Scène", tag: "3D", image: "images/reel/01b.jpg" },
+    { title: "Environment 3D - Blockout", tag: "3D", image: "images/reel/01c.jpg" },
+    { title: "Pré-viz 3D - Couloir", tag: "3D", image: "images/reel/01d.jpg" },
+    { title: "Sculpture 3D - Personnages", tag: "ZBrush", image: "images/reel/01e.jpg" },
+    { title: "Scene 3D - Intérieur", tag: "3D", image: "images/reel/01f.jpg" },
+    { title: "Layout 3D - Blender", tag: "3D", image: "images/reel/01g.jpg" },
+    { title: "Creature Design - Encre", tag: "Artistique", image: "images/reel/01h.jpg" },
+    { title: "Environment 3D - Rue", tag: "3D", image: "images/reel/01i.jpg" },
+    { title: "Reference Board - Photos", tag: "Technique", image: "images/reel/01j.jpg" },
+    { title: "Pré-viz 3D - Salle à manger", tag: "3D", image: "images/reel/01k.jpg" },
+    { title: "Camera Setup - 3D View", tag: "3D", image: "images/reel/01l.jpg" },
+    { title: "Character Sculpt - Side View", tag: "ZBrush", image: "images/reel/01m.jpg" },
+    { title: "Planche Finale - Détail Visage", tag: "BD", image: "images/reel/01n.jpg" },
+    { title: "Planche Layout 3D - Blender", tag: "3D", image: "images/reel/01o.jpg" },
+    { title: "Planche Finale - Détail Dessin", tag: "BD", image: "images/reel/01p.jpg" }
+];
+
+
+const bookData = [
+    { title: "Sculpture numérique- Concept 3D", desc: "Modélisation et texture de Pennywise", tags: [{icon:"🗿", text:"ZBrush"}, {icon:"👤", text:"Character"}], filter: "3d", image: "images/book/01.jpg" },
+    { title: "Reference: Méandre (film de Mathieu Turi) - T-Pose", desc: "Setup de référence pour rigging + Modélisation 3D lowpoly + Texturing", tags: [{icon:"🎨", text:"3D Blender"} ,{icon:"👤", text:"Character"}, {icon:"🎭", text:"Technique"}, {icon:"⚙️", text:"Rigging"}], filter: "technique", image: "images/book/02.jpg" },
+    { title: "Storyboard - Séquence BD", desc: "Mise en page narrative, planches", tags: [{icon:"🖼️", text:"BD"}, {icon:"📐", text:"Storyboard"}, {icon:"🎨", text:"Clip studio paint"}], filter: "bd", image: "images/book/03.jpg" },
+    { title: "Sculpture ZBrush - Creature", desc: "Sculpture digitale, concept creature", tags: [{icon:"🗿", text:"ZBrush"}, {icon:"👹", text:"Creature"}], filter: "3d", image: "images/book/04.jpg" },
+    { title: "Digital artsit : BUF - buf.com/vfx ", desc: "Modeleur decor 3D film Arthur et les minimoys 2", tags: [{icon:"🎬 ", text:"3D"}, {icon:"🎨", text:"Digital"}], filter: "fx", image: "images/book/05.jpg" },
+    { title: "Character Design - Dark Theme", desc: "Illustration personnage Pennywise", tags: [{icon:"🎭", text:"Character"}, {icon:"🖤", text:"Stylo à bille"}], filter: "artistique", image: "images/book/06.jpg" },
+    { title: "Character Concept - Horror", desc: "Sculpture de personnage, ambiance sombre", tags: [{icon:"👤", text:"Character"}, {icon:"🎨", text:"Concept"}, {icon:"🗿", text:"ZBrush"}], filter: "3d", image: "images/book/07.jpg" },
+    { title: "Sketch - Fantasy Character", desc: "Croquis créature fantasy", tags: [{icon:"✏️", text:"Sketch"}, {icon:"🐉", text:"Fantasy"}], filter: "artistique", image: "images/book/08.jpg" },
+    { title: "Figure Study - Anatomy", desc: "Étude d'anatomie, pose assise", tags: [{icon:"🎨", text:"Anatomie"}, {icon:"✏️", text:"Traditionnel"}], filter: "artistique", image: "images/book/09.jpg" },
+    { title: "Digital Drawing - Creature", desc: "Dessin digital, détail fantasy", tags: [{icon:"🖋️", text:"Ink"}, {icon:"🐉", text:"Fantasy"}], filter: "artistique", image: "images/book/10.jpg" },
+    { title: "Illustration Fantasy - Scene", desc: "Scene narrative colorée", tags: [{icon:"🎨", text:"Artistique"}, {icon:"🌟", text:"Fantasy"}], filter: "artistique", image: "images/book/11.jpg" },
+    { title: "Portrait Anime - Style Manga", desc: "Portrait style manga/anime", tags: [{icon:"🎌", text:"Manga"}, {icon:"👤", text:"Portrait"}], filter: "artistique", image: "images/book/12.jpg" },
+    { title: "Character Design - Stylized", desc: "Personnage stylisé, couleurs vives", tags: [{icon:"🎨", text:"Character"}, {icon:"🌈", text:"Stylized"}], filter: "artistique", image: "images/book/13.jpg" },
+    { title: "Character Sketch - Gnome", desc: "Croquis personnage fantasy", tags: [{icon:"✏️", text:"Sketch"}, {icon:"🧙", text:"Fantasy"}], filter: "artistique", image: "images/book/14.jpg" },
+    { title: "Fresque - Bas relief", desc: "Sculpture: Panels with roman’s at work", tags: [{icon:"🗿", text:"ZBrush"}, {icon:"🎨", text:"3D"}], filter: "3d", image: "images/book/15.jpg" },
+    { title: "Sculpture - Muscular Figure", desc: "Sculpture anatomique détaillée", tags: [{icon:"🗿", text:"Sculpture"}, {icon:"💪", text:"Anatomie"}], filter: "3d", image: "images/book/16.jpg" },
+    { title: "Storyboard - Action Scene", desc: "Planche storyboard action", tags: [{icon:"🎬", text:"Storyboard"}, {icon:"⚔️", text:"Action"}], filter: "bd", image: "images/book/17.jpg" },
+    { title: "Concept Design - Detailed", desc: "Concept décor complexe", tags: [{icon:"🎨", text:"Concept"}], filter: "artistique", image: "images/book/18.jpg" },
+    { title: "Story Board - Jeu vidéo", desc: "Planche de storyboard Le secret du Nautilus (Jeu vidéo)", tags: [{icon:"📋", text:"Reference"}, {icon:"🎭", text:"Character"}], filter: "technique", image: "images/book/19.jpg" },
+    { title: "Stylo à bille - Art traditionnel", desc: "Dessin thématique peur de l'eau", tags: [{icon:"🎨", text:"Anatomie"}, {icon:"🎨", text:"dessin"}], filter: "artistique", image: "images/book/20.jpg" },
+    { title: "Digital Sculpture - Fresque", desc: "Sculpture creature 3D", tags: [{icon:"🗿", text:"Sculpture"}, {icon:"🗿", text:"ZBrush"}], filter: "3d", image: "images/book/21.jpg" },
+    { title: "Digital Sculpture - Angle 2", desc: "Variante sculpture fresque facade", tags: [{icon:"🗿", text:"Sculpture"}, {icon:"🗿", text:"ZBrush"}], filter: "3d", image: "images/book/22.jpg" },
+    { title: "Digital Design - Sculpture", desc: "Sculpture fresque peinture détaillé reproduit en 3D", tags: [{icon:"🗿", text:"Sculpture"}, {icon:"🗿", text:"ZBrush"}], filter: "3d", image: "images/book/23.jpg" },
+    { title: "Warrior Sculpture - Character", desc: "Sculpture personnage armé", tags: [{icon:"🗿", text:"Sculpture"}, {icon:"🗿", text:"ZBrush"}], filter: "3d", image: "images/book/24.jpg" },
+    { title: "Master Study - Classical", desc: "Référence peinture classique, pour reproduction fresque facade 3D sur ZBrush", tags: [{icon:"🎨", text:"Traditionnel"}, {icon:"🖼️", text:"Study"}], filter: "technique", image: "images/book/25.jpg" },
+    { title: "Armor Artwork - Sculpture", desc: "Sculpture personnage armure", tags: [{icon:"🗿", text:"Sculpture"}, {icon:"🗿", text:"ZBrush"}], filter: "3d", image: "images/book/26.jpg" },
+    { title: "Group Sculpture - Scene", desc: "Sculpture multiples personnages", tags: [{icon:"🗿", text:"Sculpture"}, {icon:"🗿", text:"ZBrush"}], filter: "3d", image: "images/book/27.jpg" },
+    { title: "Dynamic Pose - Figure", desc: "Étude sculpture monstre: TANK - Left 4 Dead 2 (jeu vidéo)", tags: [{icon:"🗿", text:"Sculpture"}, {icon:"🗿", text:"ZBrush"}], filter: "3d", image: "images/book/28.jpg" },
+    { title: "Digital Sculpture - Impression 3D", desc: "Sculpture personnage sur socle - Imprimé avec 3D CR-10", tags: [{icon:"🗿", text:"Sculpture"}, {icon:"🗿", text:"Impression 3D"}], filter: "3d", image: "images/book/29.jpg" },
+    { title: "Artwork - Méandre", desc: "Illustration détaillé", tags: [{icon:"🎨", text:"Concept"}, {icon:"💪", text:"Anatomie"}, {icon:"🎨", text:"Clip studio paint"}], filter: "artistique", image: "images/book/30.jpg" },
+    { title: "Geste Créatif - XP PEN", desc: "La main en action, le trait en devenir. Capture du processus créatif numérique où l'artiste donne vie à ses personnages. Derrière chaque œuvre, il y a ce geste précis, cette intention qui transforme l'idée en image.", tags: [{icon:"✍️", text:"Process"}, {icon:"🖊️", text:"Digital"}, {icon:"💭", text:"Création"}], filter: "technique", image: "images/book/31.jpg" },
+    { title: "Encre & Lumière - Stylo", desc: "Travail de contraste et d'expression au stylo à bille. Le visage émerge du noir, porté par la lumière. Un instant capturé où la technique rencontre l'émotion, révélant l'artiste dans sa quête de vérité graphique.", tags: [{icon:"🎭", text:"Portrait"}, {icon:"✨", text:"Expression"}, {icon:"🖊️", text:"Stylo"}], filter: "artistique", image: "images/book/32.jpg" },
+    { title: "Modèle Vivant - Observation", desc: "L'artiste face au réel. Séance de dessin d'après modèle vivant, exercice fondamental qui ancre la pratique dans l'observation et l'anatomie. Derrière l'auteur de mangas et le créateur 3D, il y a d'abord un dessinateur qui affine son regard, qui cherche à comprendre le corps, le mouvement, l'humanité. C'est ici, dans ces moments de concentration silencieuse, que se forge la vision qui nourrira ensuite les univers d'ONIROPHOBIE.", tags: [{icon:"👁️", text:"Observation"}, {icon:"💪", text:"Anatomie"}, {icon:"🎨", text:"Traditionnel"}], filter: "technique", image: "images/book/33.jpg" }
+];
+
+const cvData = [
+    { 
+        year: "2024", 
+        title: "Auteur - ONIROPHOBIE", 
+        desc: "Création complète de l'univers manga/thriller psychologique. Scénario, character design, illustration et direction artistique.", 
+        type: "Auteur",
+        gallery: ["images/cv/11.jpg", "images/cv/11a.jpg", "images/cv/11b.jpg"]
+    },
+    { 
+        year: "2022", 
+        title: "ZBrush Artist - Stark Energie", 
+        desc: "Sculpture 3D de façades architecturales d'après tableaux de maîtres (Michel-Ange). Modélisation haute définition pour impressions grand format.", 
+        type: "3D",
+        gallery: ["images/cv/10.jpg", "images/cv/10a.jpg"]
+    },
+    { 
+        year: "2018", 
+        title: "Enseignant 3D - YNOV", 
+        desc: "Création de cours et exercices de ZBrush/MAYA pour Bachelor Animation 3D. Transmission de techniques de sculpture digitale et modélisation.", 
+        type: "Formation",
+        gallery: ["images/cv/09.jpg", "images/cv/09a.jpg", "images/cv/09b.jpg", "images/cv/09c.jpg", "images/cv/09d.jpg", "images/cv/09e.jpg", "images/cv/09f.jpg", "images/cv/09g.jpg", "images/cv/09h.jpg", "images/cv/09i.jpg", "images/cv/09j.jpg", "images/cv/09k.jpg"]
+    },
+    { 
+        year: "2017-2023", 
+        title: "Sculpteur 3D Freelance", 
+        desc: "Perfectionnement autodidacte sur ZBrush et Blender. Création de personnages pour jeux vidéo, anime et projets originaux. Pipeline complet sculpture → rendu.", 
+        type: "3D",
+        gallery: ["images/cv/08.jpg", "images/cv/08a.jpg", "images/cv/08b.jpg", "images/cv/08c.jpg", "images/cv/08d.jpg", "images/cv/08e.jpg", "images/cv/08f.jpg"
+            , "images/cv/08g.jpg", "images/cv/08h.jpg", "images/cv/08i.jpg", "images/cv/08j.jpg", "images/cv/08k.jpg", "images/cv/08l.jpg"
+        ]
+    },
+    { 
+        year: "2015-2018", 
+        title: "École Duperré - Modelage/Moulage", 
+        desc: "Formation artistique traditionnelle. Modelage argile d'après modèles vivants, techniques de moulage. Renforcement des bases en anatomie et volumes.", 
+        type: "Formation",
+        gallery: ["images/cv/07.jpg", "images/cv/07a.jpg", "images/cv/07b.jpg"]
+    },
+    { 
+        year: "2009-2020", 
+        title: "Graphiste 2D-3D & Webdesign", 
+        desc: "Freelance polyvalent : Modelisation 3D, création de logos, sites web (HTML/CSS/PHP), comics, storyboards. Direction artistique pour divers clients.", 
+        type: "Freelance",
+        gallery: ["images/cv/06.jpg", "images/cv/06a.jpg", "images/cv/06b.jpg", "images/cv/06c.jpg", "images/cv/06d.jpg", "images/cv/06e.jpg", "images/cv/06f.jpg", "images/cv/06g.jpg"]
+    },
+    { 
+        year: "2007-2008", 
+        title: "VFX Artist - BUF Compagnie", 
+        desc: "Effets visuels cinéma sur 3 films majeurs : Astérix aux JO, Speed Racer, Arthur et les Minimoys 2. Camera mapping, tracking, rotoscopie, compositing, texturing.", 
+        type: "FX",
+        gallery: ["images/cv/05.jpg"]
+    },
+    { 
+        year: "2006-2007", 
+        title: "3D Artist - Strass Productions", 
+        desc: "Graphiste environnement sur le jeu Lodyssée Sibérienne. Réalisation du film 3D industriel 'GNL' pour Aloest. Modélisation et rendu.", 
+        type: "3D",
+        gallery: ["images/cv/04.jpg", "images/cv/04a.jpg", "images/cv/04b.jpg", "images/cv/04c.jpg", "images/cv/04d.jpg", "images/cv/04e.jpg", "images/cv/04f.jpg", "images/cv/04g.jpg", "images/cv/04h.jpg",
+        "images/cv/04i.jpg", "images/cv/04j.jpg", "images/cv/04k.jpg", "images/cv/04l.jpg", "images/cv/04m.jpg", "images/cv/04n.jpg",   "images/cv/04o.gif", "images/cv/04p.gif"]
+    },
+    { 
+        year: "2003-2005", 
+        title: "Dessinateur/Coloriste - 6e Continent / LA CELLULE", 
+        desc: "Création de la BD web 'Les Chumballs'. Colorisation de 'La migration des ibanes'. Travail éditorial et narration graphique.", 
+        type: "BD",
+        gallery: ["images/cv/03.jpg", "images/cv/03a.jpg", "images/cv/03b.jpg", "images/cv/03c.gif", "images/cv/03d.jpg", "images/cv/03e.jpg","images/cv/03f.jpg"]
+    },
+   { 
+        year: "2001-2002", 
+        title: "Character designer - T-BOT INTERACTIVE", 
+        desc: "Recherche graphique et design et storyboarder sur les jeux vidéo:« Le secret du Nautilus » Editeur Cryo Interactive, « Archon », « Rune Master» et « Yamakasi »", 
+        type: "Concept Art",
+        gallery: ["images/cv/02m.jpg", "images/cv/02n.jpg", "images/cv/02o.jpg", "images/cv/02p.jpg", "images/cv/02q.jpg", "images/cv/02r.jpg", "images/cv/02s.jpg", "images/cv/02t.jpg"]
+    },
+    { 
+        year: "2001-2003", 
+        title: "Game Designer - ITECOM", 
+        desc: "Formation complète 3DSMAX et Photoshop. Création d'objets, personnages et décors. Effets spéciaux, texturing, skinning, rigging, animation.", 
+        type: "Formation",
+        gallery: ["images/cv/02.jpg", "images/cv/02a.jpg", "images/cv/02b.jpg"]
+    },
+    { 
+        year: "1999-2001", 
+        title: "Illustration & BD - École ArcenCiel", 
+        desc: "Création de bandes dessinées, techniques traditionnelles. Storyboard, synopsis, scénarios. Visuels présentés aux éditeurs (Soleil, Casterman, Pika, Ankama).", 
+        type: "BD",
+        gallery: ["images/cv/01.jpg", "images/cv/01a.jpg", "images/cv/01b.jpg", "images/cv/01c.jpg", "images/cv/01d.jpg", "images/cv/01e.jpg", "images/cv/01f.jpg", "images/cv/01g.jpg", "images/cv/01h.jpg", "images/cv/01i.jpg"]
+    }
+];
+
+const skillsData = ["Blender", "ZBrush", "Substance Painter", "Unreal Engine", "Affinity", "CapCut", "Qwen studio","Storyboard", "Clip Studio Paint", "Rigging", "Texturing PBR", "Scénario", "SeeDance 2.0", "Direction Artistique", "Composition", "Anatomie", "GPT5"];
+
+const projectsData = [
+    { title: "ONIROPHOBIE", desc: "Un univers où les rêves prennent vie... et deviennent mortels. Un manga/thriller psychologique explorant les peurs les plus profondes de l'humanité.", status: "En cours", statusType: "active", image: "images/projets/01.jpg", tags: ["Manga", "Thriller", "Psychologique"] },
+    { title: "13 LEVELS", desc: "Spin-off de l'univers Onirophobie. Une série explorant les 13 niveaux de conscience, chaque niveau révélant une nouvelle phobie et un nouveau challenge.", status: "En développement", statusType: "wip", image: "images/dp.jpg", tags: ["Spin-off", "Série", "Exploration"] }
+];
+
+const labData = [
+    { title: "Speedpainting - Paysage Norvégien", desc: "Étude de lumière et de couleurs sur un paysage de montagne norvégien. Exercice de rapidité et de rendu atmosphérique.", image: "images/labo/01.jpg" },
+    { title: "ONIROPHOBIE - Blocage personnage", desc: "Premier passage sous ZBrush pour poser les volumes du personnage principal. Focus sur les proportions et la silhouette.", image: "images/labo/02.jpg" },
+    { title: "ONIROPHOBIE - Pose dynamique", desc: "Test de posture et de composition sous Blender. Placement caméra pour une future planche d'action.", image: "images/labo/03.jpg" },
+    { title: "ONIROPHOBIE - Sculpture faciale", desc: "Étude des expressions et détails anatomiques du visage. Pré-production ZBrush pour le rendu des émotions.", image: "images/labo/04.jpg" },
+    { title: "ONIROPHOBIE - Décors intérieurs", desc: "Modélisation d'un environnement intérieur pour tester l'ambiance et l'éclairage. Setup Blender Eevee/Cycles.", image: "images/labo/05.jpg" },
+    { title: "ONIROPHOBIE - Ambiance lumineuse", desc: "Expérimentation de lighting et d'ombres pour créer une atmosphère psychologique propre à l'univers du manga.", image: "images/labo/06.jpg" },
+    { title: "ONIROPHOBIE - Scène de groupe", desc: "Mise en place des personnages dans un décor pour le storyboard 3D. Test de narration visuelle et de cadrage.", image: "images/labo/07.jpg" },
+    { title: "Croquis Urbain - Rue St Anne", desc: "Observation et dessin rapide. Capture de l'architecture et de la vie quotidienne parisienne.", image: "images/labo/08.jpg" },
+    { title: "ONIROPHOBIE - Composition narrative", desc: "Pré-visualisation d'une séquence narrative. Alignement des personnages, perspective et rythme visuel.", image: "images/labo/09.jpg" },
+    { title: "ONIROPHOBIE - Composition narrative", desc: "Placement des personnages dans la scène 3D. Recherche cadrage du plan sous Blender.", image: "images/labo/10.jpg" },
+    { title: "ONIROPHOBIE - Interaction personnages", desc: "Test de blocking pour la composition 3D de la couverture de mon manga ONIROPHOBIE. Placement caméra et cadrage cinématique sous Blender.", image: "images/labo/11.jpg" },
+    { title: "ONIROPHOBIE - Environnement quotidien", desc: "Reconstitution d'un espace de vie (la chambre de LISA) pour ancrer l'histoire dans un réalisme onirique. Test de matériaux PBR.", image: "images/labo/12.jpg" },
+    { title: "ONIROPHOBIE - Décors scène 3D", desc: "Implantation des personnages et du décor. Test de rendu avec les ombres.", image: "images/labo/13.jpg" },
+    { title: "ONIROPHOBIE - Scène de réveille", desc: "Mise en scène d'un personnage dans un environnement intime. Travail sur l'émotion, le calme visuel et la composition.", image: "images/labo/14.jpg" },
+    { title: "ONIROPHOBIE - LISA en train de dormir", desc: "Création d'une scène de rêve et de cauchemar. Cadrage, éclairage et textures.", image: "images/labo/15.jpg" },
+    { title: "ONIROPHOBIE - Immersion virtuelle", desc: "Modélisation de l'environnement. Test de rendu d'un plan pour le lore du manga.", image: "images/labo/16.jpg" },
+    { title: "ONIROPHOBIE - Croquis couverture", desc: "Première esquisse graphique pour la couverture du manga. Recherche de composition, de hiérarchie visuelle et de pose.", image: "images/labo/17.jpg" },
+    { title: "ONIROPHOBIE - Couverture finale", desc: "Version aboutie et encrée de la couverture. Travail de contraste, de détails, de lettrage et de finition graphique.", image: "images/labo/18.jpg" },
+    { title: "Illustration - Lavis encre de chine", desc: "Technique traditionnelle de lavis. Jeu de transparences, de textures et de fluides pour capturer une atmosphère brute.", image: "images/labo/19.jpg" },
+    { title: "ONIROPHOBIE - Découpage séquence", desc: "Pré-production de planches via des rendus 3D. Cadrage, rythme narratif et transition vers le format BD.", image: "images/labo/20.jpg" },
+    { title: "Croquis - LISA au stylo bille", desc: "Étude de personnage rapide au stylo bille. Travail de hachures, de contrastes et de traits expressifs.", image: "images/labo/21.jpg" },
+    { title: "Illustration - Aquaphobie", desc: "Représentation graphique de la phobie de l'eau. Technique stylo bille pour un rendu fin, dense et anxiogène.", image: "images/labo/22.jpg" },
+    { title: "Croquis Féminin - Stylo bille", desc: "Portrait spontané capturant l'attitude et la lumière naturelle. Exercice de précision et de fluidité du trait.", image: "images/labo/23.jpg" },
+    { title: "Étude Anatomique - Squelette", desc: "Analyse structurelle du crâne et de la colonne vertébrale. Base essentielle pour la construction 3D et le dessin réaliste.", image: "images/labo/24.jpg" },
+    { title: "Composition & Perspective - Blocage", desc: "Première esquisse de cadrage et de perspective. Placement du personnage, structuration des escaliers et définition de l'espace environnant.", image: "images/labo/25.jpg" },
+    { title: "Dessin Détaillé - Structure & Texture", desc: "Affinage au crayon/charbon. Ajout des détails organiques, des textures du trône et des volumes anatomiques pour renforcer la présence du sujet.", image: "images/labo/26.jpg" },
+    { title: "Étude Chromatique - Ambiance Rouge", desc: "Pose des valeurs et de la lumière en monochrome rouge. Test de l'atmosphère, des ombres portées et de la profondeur avant la colorisation finale.", image: "images/labo/27.jpg" },
+    { title: "Illustration Finale - Rendu & Finitions", desc: "Version aboutie de l'œuvre. Travail de colorisation complète, ajustement des contrastes, ajout de détails lumineux et finition des matières organiques.", image: "images/labo/28.jpg" }
+
+];
+
+const appsData = [
+    { name: "Frimake", icon: "🎯", link: "https://frimake.com" },
+    { name: "Knockk", icon: "🚀", link: "https://knockk.app/users/Qp9NmyEkcwbVzmsBRlMmT8EriBG3?utm_source=knockk_android&utm_medium=invite_friends&utm_content=user&utm_campaign=Qp9NmyEkcwbVzmsBRlMmT8EriBG3&referrerId=Qp9NmyEkcwbVzmsBRlMmT8EriBG3" }
+];
+
+const eventsData = [
+    { day: "jeudis", month: "à 19h", title: "Session Apéro - dessin", type: "creatif", typeName: "Créatif", desc: "Frimake/Knockk - Paris 11ème. Code parrain fritag @devenfrimake1" },
+    { day: "Vendredis", month: "à 19h", title: "Bar Jeux Vidéo", type: "games", typeName: "games", desc: "Frimake/Knockk - Paris 1ème. Code parrain knockk EBCW7" },
+    { day: "Samedis", month: "à 14h", title: "Musée créatif", type: "relax", typeName: "Détente", desc: "Frimake/Knockk - Paris" }
+];
+
+// ==========================================
+// RENDER & LOGIC
+// ==========================================
+let currentBookFilter = 'all';
+
+function renderReel() {
+    document.getElementById('reelCarousel').innerHTML = reelData.map((item, index) => `
+        <div class="reel-card" onclick="openReelLightbox(${index})">
+            <img class="reel-thumb" src="${item.image}" alt="${item.title}" loading="lazy">
+            <div class="reel-info"><span class="reel-tag">${item.tag}</span><h4 class="reel-title">${item.title}</h4></div>
+        </div>
+    `).join('');
+}
+
+function renderFilters() {
+    const filters = [
+        { id: 'all', label: 'Tous', icon: '✨' },
+        { id: 'artistique', label: 'Artistique', icon: '🎨' },
+        { id: 'technique', label: 'Technique', icon: '⚙️' },
+        { id: 'bd', label: 'BD', icon: '🖌️' },
+        { id: 'fx', label: 'FX Cinéma', icon: '🔥' },
+        { id: '3d', label: '3D Jeux Vidéo', icon: '🧊' }
+    ];
+    document.getElementById('bookFilters').innerHTML = filters.map(f => `
+        <button class="filter-btn ${currentBookFilter === f.id ? 'active' : ''}" data-filter="${f.id}">${f.icon} ${f.label}</button>
+    `).join('');
+}
+
+function renderBook() {
+    const filtered = currentBookFilter === 'all' ? bookData : bookData.filter(b => b.filter === currentBookFilter);
+    document.getElementById('bookGrid').innerHTML = filtered.map((item, i) => `
+        <div class="book-card" data-index="${bookData.indexOf(item)}">
+            <div class="book-card-img"><img src="${item.image}" alt="${item.title}" loading="lazy"></div>
+            <div class="book-card-content">
+                <div class="book-card-tags">${item.tags.map(t => `<span>${t.icon} ${t.text}</span>`).join('')}</div>
+                <h3>${item.title}</h3><p>${item.desc}</p>
+            </div>
+        </div>
+    `).join('');
+}
+
+function renderTimeline() {
+    document.getElementById('timeline').innerHTML = cvData.map((item, index) => `
+        <div class="timeline-item" onclick="openCVLightbox(${index})">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <div class="timeline-year">${item.year}</div>
+                <h3>${item.title}</h3>
+                <p>${item.desc}</p>
+                <div style="margin-top:12px; font-size:0.8rem; color:var(--accent); display:flex; align-items:center; gap:6px;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 16 16 12 12 8 8 12"/></svg>
+                    Voir les exemples de travail
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function renderSkills() {
+    document.getElementById('skillsGrid').innerHTML = skillsData.map(s => `<div class="skill-tag">${s}</div>`).join('');
+}
+
+function renderProjects() {
+    document.getElementById('projectsContainer').innerHTML = projectsData.map(p => `
+        <div class="project-card">
+            <div class="project-visual"><img class="project-visual-img" src="${p.image}" alt="${p.title}" loading="lazy"></div>
+            <div class="project-info">
+                <div class="project-status"><span class="dot ${p.statusType}"></span>${p.status}</div>
+                <h3>${p.title}</h3><p>${p.desc}</p>
+                <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:20px;">${p.tags.map(t => `<span style="font-size:0.8rem; padding:4px 12px; background:rgba(123,92,255,0.1); color:var(--accent); border-radius:4px;">${t}</span>`).join('')}</div>
+                <a href="#contact" class="btn btn-primary">Être notifié des updates</a>
+            </div>
+        </div>
+    `).join('');
+}
+
+function renderLab() {
+    document.getElementById('labGrid').innerHTML = labData.map((item, index) => `
+        <div class="lab-card" onclick="openLabLightbox(${index})">
+            <div class="lab-card-img"><img src="${item.image}" alt="${item.title}" loading="lazy"></div>
+            <div class="lab-card-content">
+                <h4>${item.title}</h4><p>${item.desc}</p>
+            </div>
+        </div>
+    `).join('');
+}
+
+function renderAgenda() {
+    document.getElementById('agendaApps').innerHTML = appsData.map(a => `
+        <a href="${a.link}" target="_blank" class="app-badge"><div class="app-badge-icon">${a.icon}</div><div><h4 style="font-size:1rem;">${a.name}</h4><p style="font-size:0.8rem; color:var(--text-dim);">Retrouve-moi →</p></div></a>
+    `).join('');
+    document.getElementById('eventsList').innerHTML = eventsData.map(e => `
+        <div class="event-card">
+            <div class="event-date"><div class="day">${e.day}</div><div class="month">${e.month}</div></div>
+            <div class="event-info"><h4>${e.title}</h4><p>${e.desc}</p><span class="event-type ${e.type}">${e.typeName}</span></div>
+        </div>
+    `).join('');
+}
+
+// FIX PARTICULES: Fonction optimisée et garantie d'exécution
+function createParticles() {
+    const container = document.getElementById('particles');
+    if (!container) return;
+    container.innerHTML = ''; // Nettoyage de sécurité
+    for (let i = 0; i < 30; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        p.style.left = Math.random() * 100 + '%';
+        p.style.top = Math.random() * 100 + '%';
+        p.style.width = p.style.height = (2 + Math.random() * 4) + 'px';
+        p.style.animationDelay = Math.random() * 8 + 's';
+        p.style.animationDuration = (6 + Math.random() * 8) + 's';
+        p.style.background = Math.random() > 0.5 ? 'var(--accent)' : 'var(--accent2)';
+        container.appendChild(p);
+    }
+}
+
+function openReelLightbox(index) {
+    const item = reelData[index]; if (!item) return;
+    document.getElementById('lightboxImg').src = item.image || '';
+    document.getElementById('lightboxTitle').textContent = item.title;
+    document.getElementById('lightboxDesc').textContent = item.tag + ' - Travail récent';
+    document.getElementById('lightboxTools').textContent = item.tag;
+    document.getElementById('lightbox').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function openLightbox(index) {
+    const item = bookData[index]; if (!item) return;
+    document.getElementById('lightboxImg').src = item.image || '';
+    document.getElementById('lightboxTitle').textContent = item.title;
+    document.getElementById('lightboxDesc').textContent = item.desc;
+    document.getElementById('lightboxTools').textContent = item.tags.map(t => `${t.icon} ${t.text}`).join(' • ');
+    document.getElementById('lightbox').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+function showToast(message) {
+    const toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3000);
+}
+
+function toggleFaq(el) { el.parentElement.classList.toggle('active'); }
+
+// 📧 Gestion Contact Form (AJAX sans rechargement)
+document.getElementById('contactForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = this.querySelector('button[type="submit"]');
+    const originalText = btn.innerHTML;
+    btn.innerHTML = 'Envoi en cours...';
+    btn.disabled = true;
+
+    try {
+        const res = await fetch(this.action, {
+            method: 'POST',
+            body: new FormData(this),
+            headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+            showToast('✅ Message envoyé avec succès ! Réponse sous 48h.');
+            this.reset();
+        } else {
+            showToast('❌ Erreur lors de l\'envoi. Réessaie plus tard.');
+        }
+    } catch (err) {
+        showToast('❌ Problème de connexion.');
+    } finally {
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+    }
+});
+
+// 🧪 Gestion Labo Suggestion
+document.getElementById('laboSuggestionForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = this.querySelector('button');
+    btn.textContent = '...';
+    
+    try {
+        const res = await fetch(this.action, {
+            method: 'POST',
+            body: new FormData(this),
+            headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+            showToast('💡 Suggestion enregistrée ! Merci pour l\'idée.');
+            this.reset();
+        } else {
+            showToast('❌ Échec de l\'envoi.');
+        }
+    } catch (err) {
+        showToast('❌ Erreur réseau.');
+    } finally {
+        btn.textContent = 'Proposer';
+    }
+});
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    createParticles(); // Activation immédiate et sécurisée
+    renderReel(); renderFilters(); renderBook(); renderTimeline(); renderSkills(); renderProjects(); renderLab(); renderAgenda();
+    
+    document.getElementById('bookFilters').addEventListener('click', e => {
+        const btn = e.target.closest('.filter-btn');
+        if (btn) { document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); currentBookFilter = btn.dataset.filter; renderBook(); }
+    });
+    document.getElementById('bookGrid').addEventListener('click', e => { const card = e.target.closest('.book-card'); if (card) openLightbox(parseInt(card.dataset.index)); });
+    document.getElementById('lightbox').addEventListener('click', e => { if (e.target.id === 'lightbox' || e.target.classList.contains('lightbox-close')) closeLightbox(); });
+    document.getElementById('lightboxContent').addEventListener('click', e => e.stopPropagation());
+    document.querySelector('.menu-toggle').addEventListener('click', function() { this.classList.toggle('active'); document.getElementById('mobileMenu').classList.toggle('active'); });
+    document.querySelectorAll('#mobileMenu a').forEach(a => a.addEventListener('click', () => { document.querySelector('.menu-toggle').classList.remove('active'); document.getElementById('mobileMenu').classList.remove('active'); }));
+    document.addEventListener('keydown', e => { if(e.key==='Escape') closeLightbox(); });
+// 🧭 Navigation Active State & Scroll Spy
+const navLinks = [...document.querySelectorAll('.nav-links a, .mobile-menu a')];
+const sections = document.querySelectorAll('section[id]');
+
+function updateActiveNav() {
+    let current = '';
+    const scrollY = window.scrollY + 120; // Offset hauteur navbar
+
+    sections.forEach(section => {
+        const top = section.offsetTop;
+        const height = section.offsetHeight;
+        if (scrollY >= top && scrollY < top + height) {
+            current = section.getAttribute('id');
+        }
+    });
+
+    navLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === `#${current}`);
+    });
+}
+
+// Clic immédiat
+navLinks.forEach(link => {
+    link.addEventListener('click', function() {
+        navLinks.forEach(l => l.classList.remove('active'));
+        this.classList.add('active');
+    });
+});
+
+// Scroll + fond navbar
+window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+    updateActiveNav();
+});
+
+// Init au chargement
+document.addEventListener('DOMContentLoaded', updateActiveNav);
+    
+    // Carousel buttons
+    const carousel = document.getElementById('reelCarousel');
+    const prevBtn = document.querySelector('.reel-prev');
+    const nextBtn = document.querySelector('.reel-next');
+    const scrollStep = 320;
+    if(carousel && prevBtn && nextBtn) {
+        prevBtn.addEventListener('click', e => { e.stopPropagation(); carousel.scrollBy({ left: -scrollStep, behavior: 'smooth' }); });
+        nextBtn.addEventListener('click', e => { e.stopPropagation(); carousel.scrollBy({ left: scrollStep, behavior: 'smooth' }); });
+    }
+});
+</script>
+
+<!-- Script Ultra-Simple : Activation immédiate -->
+<script>
+(function() {
+    const audio = document.getElementById('ambientAudio');
+    const toggle = document.getElementById('audioToggle');
+    const iconOff = toggle.querySelector('.icon-off');
+    const iconOn = toggle.querySelector('.icon-on');
+    
+    audio.volume = 0.20; // -24 LUFS specs dp
+    let isPlaying = false;
+    let activated = false;
+
+    // Fonction d'activation audio + UI
+    const playAudio = async () => {
+        if (activated) return;
+        activated = true;
+        
+        try {
+            await audio.play();
+            isPlaying = true;
+            iconOff.style.opacity = '0';
+            iconOn.style.opacity = '1';
+            toggle.classList.add('active');
+            toggle.style.borderColor = '#4A3B8C';
+            toggle.style.boxShadow = '0 0 25px rgba(74,59,140,0.35)';
+        } catch (e) {
+            console.log('Audio blocked, waiting for next gesture');
+            activated = false; // Réessayer au prochain geste
+        }
+    };
+
+    // TOUS les événements possibles — sans filtre, sans condition
+    const events = [
+        'click','mousedown','mouseup','touchstart','touchend',
+        'keydown','keyup','wheel','scroll','mousemove','touchmove',
+        'focus','blur','resize','orientationchange'
+    ];
+
+    // Handler unique : joue + nettoie TOUT
+    const trigger = (e) => {
+        playAudio();
+        // Supprime TOUS les listeners après première tentative
+        events.forEach(evt => {
+            window.removeEventListener(evt, trigger, true);
+            window.removeEventListener(evt, trigger, false);
+            document.removeEventListener(evt, trigger, true);
+            document.removeEventListener(evt, trigger, false);
+        });
+    };
+
+    // Ajoute les listeners sur window ET document, capture ET bubble
+    events.forEach(evt => {
+        window.addEventListener(evt, trigger, true);
+        window.addEventListener(evt, trigger, false);
+        document.addEventListener(evt, trigger, true);
+        document.addEventListener(evt, trigger, false);
+    });
+
+    // Toggle manuel (mute/unmute) — toujours fonctionnel
+    toggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (isPlaying) {
+            audio.pause();
+            isPlaying = false;
+            iconOff.style.opacity = '1';
+            iconOn.style.opacity = '0';
+            toggle.style.borderColor = 'rgba(255,255,255,0.12)';
+            toggle.style.boxShadow = 'none';
+        } else {
+            audio.play().then(() => {
+                isPlaying = true;
+                iconOff.style.opacity = '0';
+                iconOn.style.opacity = '1';
+                toggle.style.borderColor = '#4A3B8C';
+                toggle.style.boxShadow = '0 0 25px rgba(74,59,140,0.35)';
+            }).catch(() => {});
+        }
+    });
+
+    // Pause si onglet inactif
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden && isPlaying) audio.pause();
+        else if (!document.hidden && isPlaying) audio.play().catch(()=>{});
+    });
+})();
+</script>
+
+
+
+
+
+<!-- Container "13" (Overlay) -->
+<div id="thirteen-layer" style="position:fixed; inset:0; pointer-events:none; z-index:5; overflow:hidden;"></div>
+
+<!-- Styles pour l'animation et le rendu visuel -->
+<style>
+    /* Conteneur de chaque "13" */
+    .thirteen {
+        position: absolute;
+        pointer-events: none;
+        transform: rotate(var(--rotation));
+        transform-origin: center;
+        will-change: transform, opacity;
+    }
+
+    /* Le SVG en lui-même */
+    .thirteen svg {
+        width: 100%;
+        height: 100%;
+        display: block;
+    }
+
+    /* Le tracé (Path) du 13 */
+    .thirteen path {
+        fill: none;
+        stroke: currentColor;
+        stroke-width: var(--stroke-width, 2);
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        
+        /* Préparation de l'animation "dessin" */
+        stroke-dasharray: var(--dash-length, 160);
+        stroke-dashoffset: var(--dash-length, 160);
+        
+        /* Animations : Écriture puis Disparition */
+        animation: write var(--write-duration, 3s) cubic-bezier(0.4, 0, 0.2, 1) forwards, 
+                   fadeOut 1.5s ease-in var(--fade-delay, 3s) forwards;
+    }
+
+    /* Variante PREMIER PLAN */
+    .thirteen.foreground {
+        z-index: 20;
+        filter: drop-shadow(0 0 var(--glow-size, 10px) currentColor);
+        opacity: 0.95;
+    }
+
+    /* Variante ARRIÈRE-PLAN */
+    .thirteen.background {
+        z-index: 1;
+        opacity: 0.5;
+        filter: drop-shadow(0 0 var(--glow-size, 15px) currentColor);
+    }
+
+    /* Keyframes d'animation */
+    @keyframes write {
+        to { stroke-dashoffset: 0; }
+    }
+    @keyframes fadeOut {
+        to { opacity: 0; transform: rotate(var(--rotation)) scale(0.9); }
+    }
+
+    /* Ajustement Mobile */
+    @media (max-width: 768px) {
+        .thirteen { max-width: 150px; max-height: 150px; }
+    }
+</style>
+
+<!-- Script de génération et d'animation -->
+<script>
+(function() {
+    // === ⚙️ PARAMÈTRES AJUSTABLES ===
+    const CONFIG = {
+        // Taille : base en px, multiplicateur max (1x à 5x)
+        sizeBase: 60,
+        sizeMaxMultiplier: 5,
+        
+        // Palette de couleurs (ajoute/supprime des hex ici)
+        colors: [
+            { hex: '#4A3B8C', name: 'violet', glow: 0.5 },   // Indigo dp
+            { hex: '#FF00AA', name: 'fuchsia', glow: 0.8 },  // Néon rose
+            { hex: '#8899B3', name: 'argent', glow: 0.6 }    // Silver dp
+        ],
+        
+        // Variations de forme "13" manuscrit (SVG paths)
+        // Ajoute autant de variations que tu veux ici
+        paths: [
+           // Style 1: perso/ calligraphique
+            "m 2 5 L 5 1 L 5 22 M 12 1 C 14 1 18 1 19 4 C 19 7 17 8 14 10 C 14 10 19 11 20 13 C 22 16 20 22 11 22",
+
+
+           // Style 1: Élégant / calligraphique
+                "M 20 15 L 18 50 M 30 15 C 50 5, 55 25, 45 30 C 55 35, 45 50, 25 50",
+            // Style 5: Fluide / continu
+                "M 20 15 L 18 50 M 30 15 C 52 8, 58 22, 52 32 C 58 42, 48 52, 28 52",
+            // Style 7: Dramatique / contrasté
+                "M 22 10 L 18 52 M 34 14 C 54 6, 56 26, 46 32 C 54 40, 46 52, 26 52"
+        
+        ],
+        
+        // Épaisseur du trait (min/max en px)
+        strokeWidthMin: 1.5,
+        strokeWidthMax: 4,
+        
+        // Vitesse d'écriture (min/max en secondes)
+        writeDurationMin: 2,
+        writeDurationMax: 4,
+        
+        // Délai avant disparition (après la fin de l'écriture)
+        fadeDelay: 1,
+        
+        // Fréquence d'apparition (min/max en ms)
+        spawnDelayMin: 6000,
+        spawnDelayMax: 15000,
+        
+        // Maximum de "13" simultanés à l'écran
+        maxInstances: 3,
+        
+        // Probabilité d'être au premier plan (0.0 à 1.0)
+        foregroundProbability: 0.25,
+        
+        // Rotation max en degrés (-X à +X)
+        rotationMax: 35,
+        
+        // Marges par rapport aux bords de l'écran (en px)
+        margin: 40
+    };
+
+    // === LOGIQUE INTERNE (ne pas modifier sauf si nécessaire) ===
+    const layer = document.getElementById('thirteen-layer');
+    let activeCount = 0;
+
+    // Fonction utilitaire : nombre aléatoire entre min et max
+    const rand = (min, max) => Math.random() * (max - min) + min;
+    
+    // Fonction utilitaire : élément aléatoire d'un tableau
+    const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
+
+    // Fonction principale pour créer un "13"
+    const spawnThirteen = () => {
+        if (activeCount >= CONFIG.maxInstances) return;
+        activeCount++;
+
+        // 1. Taille aléatoire (1x à 5x la base)
+        const scale = rand(1, CONFIG.sizeMaxMultiplier);
+        const size = CONFIG.sizeBase * scale;
+
+        // 2. Position aléatoire (avec marges)
+        const x = rand(CONFIG.margin, window.innerWidth - size - CONFIG.margin);
+        const y = rand(CONFIG.margin, window.innerHeight - size - CONFIG.margin);
+
+        // 3. Choix de la couleur
+        const colorConfig = pick(CONFIG.colors);
+        
+        // 4. Choix du style d'écriture (path SVG)
+        const pathD = pick(CONFIG.paths);
+        
+        // 5. Calcul de la longueur du tracé pour l'animation (approximative)
+        // Plus le path est complexe, plus la dash-length doit être grande
+        const dashLength = 120 + (pathD.length * 0.8);
+        
+        // 6. Épaisseur du trait aléatoire
+        const strokeWidth = rand(CONFIG.strokeWidthMin, CONFIG.strokeWidthMax);
+        
+        // 7. Vitesse d'écriture aléatoire
+        const writeDuration = rand(CONFIG.writeDurationMin, CONFIG.writeDurationMax);
+        const fadeDelay = writeDuration + CONFIG.fadeDelay;
+        
+        // 8. Rotation aléatoire
+        const rotation = rand(-CONFIG.rotationMax, CONFIG.rotationMax);
+        
+        // 9. Premier plan ou arrière-plan ?
+        const isForeground = Math.random() < CONFIG.foregroundProbability;
+        
+        // 10. Taille du glow en fonction de la couleur et de l'échelle
+        const glowSize = (colorConfig.glow * 10) + (scale * 2);
+
+        // Création du conteneur
+        const el = document.createElement('div');
+        el.className = `thirteen ${isForeground ? 'foreground' : 'background'}`;
+        el.style.left = `${x}px`;
+        el.style.top = `${y}px`;
+        el.style.width = `${size}px`;
+        el.style.height = `${size}px`;
+        el.style.color = colorConfig.hex;
+        el.style.setProperty('--rotation', `${rotation}deg`);
+        el.style.setProperty('--stroke-width', strokeWidth);
+        el.style.setProperty('--dash-length', dashLength);
+        el.style.setProperty('--write-duration', `${writeDuration}s`);
+        el.style.setProperty('--fade-delay', `${fadeDelay}s`);
+        el.style.setProperty('--glow-size', `${glowSize}px`);
+        
+        // Injection du SVG avec le path choisi
+        el.innerHTML = `
+            <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                <path d="${pathD}" />
+            </svg>
+        `;
+        
+        layer.appendChild(el);
+        
+        // Nettoyage automatique après la fin de l'animation
+        const totalDuration = (writeDuration + CONFIG.fadeDelay + 1.5) * 1000;
+        setTimeout(() => {
+            if (el.parentNode) {
+                el.style.transition = 'opacity 0.5s ease';
+                el.style.opacity = '0';
+                setTimeout(() => {
+                    el.remove();
+                    activeCount--;
+                }, 500);
+            }
+        }, totalDuration);
+    };
+
+    // Planification de la prochaine apparition
+    const scheduleNext = () => {
+        const delay = rand(CONFIG.spawnDelayMin, CONFIG.spawnDelayMax);
+        setTimeout(() => {
+            spawnThirteen();
+            scheduleNext();
+        }, delay);
+    };
+
+    // Démarrage après 3 secondes (laisser le loader du site finir)
+    setTimeout(scheduleNext, 3000);
+
+    // Pause si onglet inactif (économie ressources)
+    document.addEventListener('visibilitychange', () => {
+        // Optionnel : suspendre les spawns si l'onglet est caché
+    });
+})();
+
+
+// 🧪 Lightbox pour le Labo Créatif
+function openLabLightbox(index) {
+    const item = labData[index];
+    if (!item) return;
+    document.getElementById('lightboxImg').src = item.image || '';
+    document.getElementById('lightboxTitle').textContent = item.title;
+    document.getElementById('lightboxDesc').textContent = item.desc;
+    document.getElementById('lightboxTools').textContent = '🧪 Labo Créatif';
+    document.getElementById('lightbox').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+
+
+// 📂 Lightbox pour CV - Affiche les exemples de travail
+function openCVLightbox(index) {
+    const item = cvData[index]; if (!item) return;
+    document.getElementById('cvLightboxYear').textContent = item.year;
+    document.getElementById('cvLightboxTitle').textContent = item.title;
+    document.getElementById('cvLightboxDesc').textContent = item.desc;
+    
+    const gallery = document.getElementById('cvLightboxGallery');
+    const empty = document.getElementById('cvLightboxEmpty');
+    const header = document.getElementById('cvLightboxHeader');
+    
+    if (item.gallery && item.gallery.length > 0) {
+        gallery.innerHTML = item.gallery.map(media => {
+            if (media.type === 'video') {
+                return `
+                    <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:var(--radius);">
+                        <iframe src="${media.src}" 
+                                style="position:absolute; top:0; left:0; width:100%; height:100%; border:0;" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen
+                                loading="lazy">
+                        </iframe>
+                    </div>
+                `;
+            } else {
+                return `<img src="${media.src}" alt="${item.title}" loading="lazy" onclick="openImageViewer('${media.src}')">`;
+            }
+        }).join('');
+        gallery.style.display = 'grid'; 
+        header.style.display = 'block'; 
+        empty.style.display = 'none';
+    } else {
+        gallery.style.display = 'none'; 
+        header.style.display = 'none'; 
+        empty.style.display = 'block';
+    }
+    document.getElementById('cvLightbox').classList.add('active');
+    document.body.style.overflow = 'hidden';
+
+    
+    // Générer la galerie
+    if (item.gallery && item.gallery.length > 0) {
+        gallery.innerHTML = item.gallery.map(img => `
+            <img src="${img}" alt="${item.title}" loading="lazy" onerror="this.style.display='none'">
+        `).join('');
+        gallery.style.display = 'grid';
+        header.style.display = 'block';
+    } else {
+        gallery.style.display = 'none';
+        header.style.display = 'none';
+    }
+    
+    lb.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeCVLightbox() {
+    document.getElementById('cvLightbox').classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+// Fermeture CV Lightbox avec ESC
+document.addEventListener('keydown', e => { 
+    if(e.key==='Escape') { closeLightbox(); closeCVLightbox(); } 
+});
+
+// 🔍 Gestion du zoom image
+function openImageViewer(src) {
+    document.getElementById('imageViewerImg').src = src;
+    document.getElementById('imageViewer').classList.add('active');
+}
+function closeImageViewer(e) {
+    if (!e || e.target === document.getElementById('imageViewer') || e.target.classList.contains('image-viewer-close')) {
+        document.getElementById('imageViewer').classList.remove('active');
+    }
+}
+
+//  Mise à jour de openCVLightbox (remplace l'ancienne)
+function openCVLightbox(index) {
+    const item = cvData[index]; if (!item) return;
+    document.getElementById('cvLightboxYear').textContent = item.year;
+    document.getElementById('cvLightboxTitle').textContent = item.title;
+    document.getElementById('cvLightboxDesc').textContent = item.desc;
+    
+    const gallery = document.getElementById('cvLightboxGallery');
+    const empty = document.getElementById('cvLightboxEmpty');
+    const header = document.getElementById('cvLightboxHeader');
+    
+    if (item.gallery && item.gallery.length > 0) {
+        gallery.innerHTML = item.gallery.map(img => `
+            <img src="${img}" alt="${item.title}" loading="lazy" onclick="openImageViewer('${img}')">
+        `).join('');
+        gallery.style.display = 'grid'; header.style.display = 'block'; empty.style.display = 'none';
+    } else {
+        gallery.style.display = 'none'; header.style.display = 'none'; empty.style.display = 'block';
+    }
+    document.getElementById('cvLightbox').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+// 🔄 Mise à jour de l'écouteur ESC (remplace l'ancien)
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+        closeImageViewer();
+        closeCVLightbox();
+        closeLightbox();
+    }
+});
+</script>
+<!-- CV Lightbox -->
+<div class="cv-lightbox" id="cvLightbox" onclick="closeCVLightbox(event)">
+    <button class="cv-lightbox-close" onclick="closeCVLightbox()">&times;</button>
+    <div class="cv-lightbox-content" onclick="event.stopPropagation()">
+        <div class="cv-lightbox-header" id="cvLightboxHeader" style="display:none;">
+            <span class="cv-lightbox-year" id="cvLightboxYear"></span>
+            <h3 class="cv-lightbox-title" id="cvLightboxTitle"></h3>
+            <p class="cv-lightbox-desc" id="cvLightboxDesc"></p>
+        </div>
+        <div class="cv-lightbox-gallery" id="cvLightboxGallery" style="display:none;"></div>
+        <div class="cv-lightbox-empty" id="cvLightboxEmpty">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <p>Exemples de travail en cours d'ajout...</p>
+        </div>
+    </div>
+</div>
+<!-- 🔍 Full Screen Image Viewer -->
+<div class="image-viewer" id="imageViewer" onclick="closeImageViewer(event)">
+    <button class="image-viewer-close" onclick="closeImageViewer()">&times;</button>
+    <img id="imageViewerImg" src="" alt="Zoom">
+</div>
+
+</body>
+</html>
+
